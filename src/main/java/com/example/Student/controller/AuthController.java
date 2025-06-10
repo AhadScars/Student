@@ -24,4 +24,9 @@ public class AuthController {
     public authUser save(@RequestBody authUser user){
     return service.save(user);
     }
+
+    @PostMapping("/login")
+    public String login(@RequestBody authUser user){
+        return service.verify(user);
+    }
 }
