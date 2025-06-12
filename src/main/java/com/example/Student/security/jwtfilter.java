@@ -1,6 +1,7 @@
 package com.example.Student.security;
 
 import com.example.Student.service.JWTservice;
+import com.example.Student.service.TokenBlacklistService;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
@@ -13,15 +14,14 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.web.authentication.WebAuthenticationDetailsSource;
 import org.springframework.stereotype.Component;
 import org.springframework.web.filter.OncePerRequestFilter;
-
 import java.io.IOException;
 @Component
-
 public class jwtfilter extends OncePerRequestFilter {
-
     @Autowired
     ApplicationContext context;
 
+    @Autowired
+    TokenBlacklistService blacklistService;
     @Autowired
     private JWTservice jwTservice;
     @Override
@@ -34,6 +34,10 @@ public class jwtfilter extends OncePerRequestFilter {
             username = jwTservice.extractUserName(token);
         }
         if (username != null && SecurityContextHolder.getContext().getAuthentication() == null){
+            if (blacklistService.isTokenBlacklisted(token)) {
+                response.sendError(HttpServletResponse.SC_UNAUTHORIZED, "Token is blacklisted");
+                return;
+            }
 
             UserDetails userDetails = context.getBean(CostumerService.class).loadUserByUsername(username);
 

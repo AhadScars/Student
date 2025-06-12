@@ -14,23 +14,17 @@ import java.util.List;
 
 @Service
 public class authService {
-
     @Autowired
     private JWTservice jwTservice;
-
     @Autowired
     AuthenticationManager authenticationManager;
-
     @Autowired
     private PasswordEncoder passwordEncoder = new BCryptPasswordEncoder(12);
-
     @Autowired
     UserRepo repo;
-
     public List<authUser> gettAll(){
         return repo.findAll();
     }
-
     public authUser save(authUser user){
         user.setPassword(passwordEncoder.encode(user.getPassword()));
         return repo.save(user);

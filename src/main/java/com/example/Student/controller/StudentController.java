@@ -28,5 +28,4 @@ public class StudentController {
     public void deleteAll(){
         service.deleteAll();
     }
-
 }

@@ -20,8 +20,6 @@ import java.util.function.Function;
 
 @Service
 public class JWTservice {
-
-
     private String secretKey = "";
 
     public JWTservice(){
@@ -83,7 +81,7 @@ public class JWTservice {
         return extractExpiration(token).before(new Date());
     }
 
-    private Date extractExpiration(String token) {
+    public Date extractExpiration(String token) {
         return extractClaim(token, Claims::getExpiration);
     }
 

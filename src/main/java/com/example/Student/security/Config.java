@@ -25,11 +25,8 @@ public class Config {
 
     @Autowired
     private CostumerService user;
-
     @Autowired
     private jwtfilter jwtfilter;
-
-
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception{
         return http
@@ -43,13 +40,11 @@ public class Config {
                 .addFilterBefore(jwtfilter, UsernamePasswordAuthenticationFilter.class)
                 .build();
     }
-
     @Bean
     public AuthenticationManager authenticationManager(AuthenticationConfiguration configuration) throws Exception {
         return configuration.getAuthenticationManager();
 
     }
-
     @Bean
     public AuthenticationProvider authenticationProvider(){
         DaoAuthenticationProvider provider = new DaoAuthenticationProvider();
@@ -57,9 +52,6 @@ public class Config {
         provider.setPasswordEncoder(passwordEncoder());
         return  provider;
     }
-
-
-
     @Bean
     public PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();

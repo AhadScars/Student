@@ -14,15 +14,12 @@ public class StudentService {
 
     @Autowired
     StudentRepository repo;
-
     public List<Student> getAll(){
         return repo.findAll();
     }
-
     public Student addStudent(Student student){
         return repo.save(student);
     }
-
     public void deleteAll(){
          repo.deleteAll();
     }
