@@ -9,15 +9,15 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 
-@Data
-@Entity
-@NoArgsConstructor@AllArgsConstructor
-public class authUser {
+    @Data
+    @Entity
+    @NoArgsConstructor@AllArgsConstructor
+    public class authUser {
 
-    @Id
-    @GeneratedValue (strategy = GenerationType.IDENTITY)
-    private Integer id;
-    private String username;
-    private String password;
+        @Id
+        @GeneratedValue (strategy = GenerationType.IDENTITY)
+        private Integer id;
+        private String username;
+        private String password;
 
-}
+    }
